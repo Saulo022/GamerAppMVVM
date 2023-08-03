@@ -8,15 +8,18 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gamerappmvvm.R
+import com.example.gamerappmvvm.components.DefaultButton
+import com.example.gamerappmvvm.components.DefaultTextField
 import com.example.gamerappmvvm.ui.theme.Darkgray500
 import com.example.gamerappmvvm.ui.theme.Red500
 
@@ -60,6 +63,11 @@ fun BoxHeader() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardForm() {
+
+    var email by remember { mutableStateOf("") }
+
+    var password by remember { mutableStateOf("") }
+
     Card(
         modifier = Modifier
             .padding(start = 40.dp, end = 40.dp, top = 200.dp)
@@ -83,43 +91,29 @@ fun CardForm() {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedTextField(
-                value = "",
-                onValueChange = { },
-                label = { Text(text = "Correo Electronico") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Email,
-                        contentDescription = "Email Icon",
-                        tint = Color.White
-                    )
-                }
+            DefaultTextField(
+                modifier = Modifier.padding(top = 25.dp),
+                value = email,
+                onValueChange = { email = it},
+                label = "Correo Electronico",
+                icon = Icons.Default.Email,
+                keyboardType = KeyboardType.Email
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedTextField(
-                value = "",
-                onValueChange = { },
-                label = { Text(text = "Contraseña") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Password Icon",
-                        tint = Color.White
-                    )
-                }
+            DefaultTextField(
+                modifier = Modifier.padding(top = 5.dp),
+                value = password,
+                onValueChange = { password = it},
+                label = "Contraseña",
+                icon = Icons.Default.Lock,
+                hideText = true
             )
 
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 45.dp),
-                onClick = { }) {
-                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "")
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "INICIAR SESION")
-            }
+            DefaultButton(text = "INICIAR SESION", onClick = { })
+
+
         }
     }
 }
