@@ -1,4 +1,4 @@
-package com.example.gamerappmvvm.components
+package com.example.gamerappmvvm.presentation.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,13 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmapConfig
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.example.gamerappmvvm.ui.theme.Red500
+import com.example.gamerappmvvm.presentation.ui.theme.Red500
 
 @Composable
 fun DefaultButton(
+    modifier: Modifier,
     text: String,
     onClick: () -> Unit,
     color: Color = Red500,
@@ -28,9 +28,7 @@ fun DefaultButton(
 ) {
 
     Button(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 45.dp),
+        modifier = modifier,
         onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(containerColor = color)
     ) {

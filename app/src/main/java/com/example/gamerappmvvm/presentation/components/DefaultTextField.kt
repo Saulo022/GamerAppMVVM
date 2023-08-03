@@ -1,4 +1,4 @@
-package com.example.gamerappmvvm.components
+package com.example.gamerappmvvm.presentation.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
