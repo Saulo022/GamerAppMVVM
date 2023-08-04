@@ -10,7 +10,6 @@ import com.example.gamerappmvvm.presentation.screens.login.components.LoginConte
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController) {
 
