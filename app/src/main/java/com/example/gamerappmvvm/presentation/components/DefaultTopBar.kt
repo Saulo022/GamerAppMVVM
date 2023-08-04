@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.gamerappmvvm.presentation.ui.theme.Red700
+import com.example.gamerappmvvm.presentation.ui.theme.Red500
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +30,7 @@ fun DefaultTopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Red700
+            containerColor = Red500
         )
     )
 }
