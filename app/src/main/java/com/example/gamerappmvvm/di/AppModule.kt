@@ -5,6 +5,7 @@ import com.example.gamerappmvvm.domain.repository.AuthRepository
 import com.example.gamerappmvvm.domain.uses_cases.auth.AuthUseCases
 import com.example.gamerappmvvm.domain.uses_cases.auth.GetCurrentUSer
 import com.example.gamerappmvvm.domain.uses_cases.auth.Login
+import com.example.gamerappmvvm.domain.uses_cases.auth.Logout
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,8 @@ object AppModule {
     @Provides
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCases(
         getCurrentUSer = GetCurrentUSer(repository),
-        login = Login(repository)
+        login = Login(repository),
+        logout = Logout(repository)
     )
 
 }
