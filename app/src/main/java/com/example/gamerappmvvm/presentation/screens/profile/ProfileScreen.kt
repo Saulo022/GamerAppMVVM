@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.gamerappmvvm.presentation.components.DefaultButton
 import com.example.gamerappmvvm.presentation.navigation.AppScreen
+import com.example.gamerappmvvm.presentation.screens.profile.components.ProfileContent
 
 @Composable
 fun ProfileScreen(
@@ -18,18 +19,10 @@ fun ProfileScreen(
     Scaffold(
         topBar = {},
         content = {
-            DefaultButton(
-                modifier = Modifier,
-                text = "Cerrar sesion",
-                onClick = {
-                    viewModel.logout()
-                    navController.navigate(route = AppScreen.Login.route) {
-                        //ESTO ES PARA QUE UNA VEZ CERREMOS SESION BORRE ESTA PANTALLA
-                        // DE LA PILA DE PANTALLAS ANTERIORES
-                        popUpTo(AppScreen.Profile.route) { inclusive = true }
-                    }
-                }
-            )
+
+            ProfileContent(navController)
+
+
         },
         bottomBar = {}
     )
