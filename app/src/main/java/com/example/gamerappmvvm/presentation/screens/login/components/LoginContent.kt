@@ -20,16 +20,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.gamerappmvvm.R
 import com.example.gamerappmvvm.domain.model.Response
 import com.example.gamerappmvvm.presentation.components.DefaultButton
 import com.example.gamerappmvvm.presentation.components.DefaultTextField
+import com.example.gamerappmvvm.presentation.navigation.AppScreen
 import com.example.gamerappmvvm.presentation.screens.login.LoginViewModel
 import com.example.gamerappmvvm.presentation.ui.theme.Red500
 
 
 @Composable
-fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginContent(navController: NavHostController,viewModel: LoginViewModel = hiltViewModel()) {
 
     val loginFlow = viewModel.loginFlow.collectAsState()
 
@@ -133,7 +135,9 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                 }
             }
             is Response.Success -> {
-
+                LaunchedEffect(Unit) {
+                    navController.navigate(route = AppScreen.Profile.route)
+                }
                 Toast.makeText(LocalContext.current, "Usuario Logueado", Toast.LENGTH_LONG).show()
             }
 
