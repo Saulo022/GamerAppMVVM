@@ -1,6 +1,7 @@
 package com.example.gamerappmvvm.data.repository
 
 import com.example.gamerappmvvm.domain.model.Response
+import com.example.gamerappmvvm.domain.model.User
 import com.example.gamerappmvvm.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,6 +16,17 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
 
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            Response.Success(result.user!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+    override suspend fun signUp(user: User): Response<FirebaseUser> {
+
+        return try {
+            val result = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
             Response.Success(result.user!!)
         } catch (e: Exception) {
             e.printStackTrace()
