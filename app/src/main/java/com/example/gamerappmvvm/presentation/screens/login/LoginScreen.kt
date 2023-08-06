@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.example.gamerappmvvm.presentation.screens.login.components.Login
 import com.example.gamerappmvvm.presentation.screens.login.components.LoginBottomBar
 import com.example.gamerappmvvm.presentation.screens.login.components.LoginContent
 
@@ -20,5 +21,8 @@ fun LoginScreen(navController: NavHostController) {
             LoginBottomBar(navController = navController)
         }
     )
+
+    //MANEJAR EL ESTADO DE LA PETICION DE LOGIN
+    Login(navController = navController)
 
 }

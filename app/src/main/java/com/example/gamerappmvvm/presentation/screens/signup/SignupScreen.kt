@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.gamerappmvvm.presentation.components.DefaultTopBar
+import com.example.gamerappmvvm.presentation.screens.signup.components.Signup
 import com.example.gamerappmvvm.presentation.screens.signup.components.SignupContent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -26,4 +27,6 @@ fun SignupScreen(navController: NavHostController) {
         },
         bottomBar = {}
     )
+
+    Signup(navController = navController)
 }
