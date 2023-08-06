@@ -33,11 +33,11 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
     val loginFlow: StateFlow<Response<FirebaseUser>?> = _loginFlow
 
 
-    val currentUSer = authUseCases.getCurrentUSer()
+    val currentUser = authUseCases.getCurrentUser()
 
     init {
-        if (currentUSer != null) { //SESION INICIADA
-            _loginFlow.value = Response.Success(currentUSer)
+        if (currentUser != null) { //SESION INICIADA
+            _loginFlow.value = Response.Success(currentUser)
         }
     }
 
