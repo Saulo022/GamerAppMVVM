@@ -1,5 +1,6 @@
 package com.example.gamerappmvvm.presentation.screens.profile_edit
 
+import android.content.Context
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,14 +11,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.gamerappmvvm.domain.model.Response
 import com.example.gamerappmvvm.domain.model.User
 import com.example.gamerappmvvm.domain.uses_cases.users.UsersUseCases
+import com.example.gamerappmvvm.presentation.utils.ComposeFileProvider
+import com.example.gamerappmvvm.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileEditViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val usersUseCases: UsersUseCases
+    private val usersUseCases: UsersUseCases,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     //STATE FORM
@@ -40,20 +45,39 @@ class ProfileEditViewModel @Inject constructor(
         private set
 
     //IMAGE
-    var imageUri by mutableStateOf<Uri?>(null)
-    var hasImage by mutableStateOf(false)
+    var imageUri by mutableStateOf("")
+    //var hasImage by mutableStateOf(false)
 
+    val resultingActivityHandler = ResultingActivityHandler()
     init {
         state = state.copy(username = user.username)
     }
 
-    fun onCameraResult(result: Boolean) {
+    /*fun onCameraResult(result: Boolean) {
         hasImage = result
     }
 
     fun onGalleryResult(uri: Uri?) {
         hasImage = uri != null
         imageUri = uri
+    }*/
+
+    fun pickImage() {
+        viewModelScope.launch {
+            val result = resultingActivityHandler.getContent("image/*")
+            if (result != null) {
+                imageUri = result.toString()
+            }
+        }
+    }
+
+    fun takePhoto() {
+        viewModelScope.launch {
+            val result = resultingActivityHandler.takePicturePreview()
+            if (result != null) {
+                imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
+            }
+        }
     }
 
     fun onUpdate() {
