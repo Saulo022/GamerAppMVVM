@@ -1,7 +1,5 @@
 package com.example.gamerappmvvm.presentation.screens.login.components
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,10 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.gamerappmvvm.R
-import com.example.gamerappmvvm.domain.model.Response
 import com.example.gamerappmvvm.presentation.components.DefaultButton
 import com.example.gamerappmvvm.presentation.components.DefaultTextField
-import com.example.gamerappmvvm.presentation.navigation.AppScreen
 import com.example.gamerappmvvm.presentation.screens.login.LoginViewModel
 import com.example.gamerappmvvm.presentation.ui.theme.Red500
 

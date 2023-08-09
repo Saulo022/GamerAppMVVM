@@ -1,5 +1,7 @@
 package com.example.gamerappmvvm.presentation.screens.profile.components
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -12,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -21,17 +24,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.gamerappmvvm.R
+import com.example.gamerappmvvm.presentation.MainActivity
 import com.example.gamerappmvvm.presentation.components.DefaultButton
-import com.example.gamerappmvvm.presentation.navigation.AppScreen
+import com.example.gamerappmvvm.presentation.navigation.AuthScreen
+import com.example.gamerappmvvm.presentation.navigation.DetailsScreen
+import com.example.gamerappmvvm.presentation.navigation.Graph
 import com.example.gamerappmvvm.presentation.screens.profile.ProfileViewModel
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun ProfileContent(
     navController: NavHostController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+
+    val activity = LocalContext.current as? Activity
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -98,7 +104,7 @@ fun ProfileContent(
             icon = Icons.Default.Edit,
             onClick = {
                 navController.navigate(
-                    route = AppScreen.ProfileEdit.passUser(viewModel.userData.toJson())
+                    route = DetailsScreen.ProfileEdit.passUser(viewModel.userData.toJson())
                 )
             }
         )
@@ -110,11 +116,8 @@ fun ProfileContent(
             text = "Cerrar sesion",
             onClick = {
                 viewModel.logout()
-                navController.navigate(route = AppScreen.Login.route) {
-                    //ESTO ES PARA QUE UNA VEZ CERREMOS SESION BORRE ESTA PANTALLA
-                    // DE LA PILA DE PANTALLAS ANTERIORES
-                    popUpTo(AppScreen.Profile.route) { inclusive = true }
-                }
+                activity?.finish()
+                activity?.startActivity(Intent(activity, MainActivity::class.java))
             }
         )
 
