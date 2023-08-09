@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import com.example.gamerappmvvm.presentation.components.DefaultTopBar
 import com.example.gamerappmvvm.presentation.screens.profile_edit.components.ProfileEditContent
 import com.example.gamerappmvvm.presentation.screens.profile_edit.components.Update
+import com.example.gamerappmvvm.presentation.screens.profile_edit.components.saveImage
 import com.example.gamerappmvvm.presentation.screens.signup.components.SignupContent
 
 @Composable
@@ -28,6 +29,7 @@ fun ProfileEditScreen(navController: NavHostController, user: String) {
         bottomBar = {}
     )
 
+    saveImage()
     Update()
 
 }

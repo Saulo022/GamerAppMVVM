@@ -1,7 +1,6 @@
 package com.example.gamerappmvvm.presentation.screens.profile_edit.components
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -33,7 +31,7 @@ import com.example.gamerappmvvm.presentation.components.DefaultTextField
 import com.example.gamerappmvvm.presentation.components.DialogCapturePicture
 import com.example.gamerappmvvm.presentation.screens.profile_edit.ProfileEditViewModel
 import com.example.gamerappmvvm.presentation.ui.theme.Red500
-import com.example.gamerappmvvm.presentation.utils.ComposeFileProvider
+
 
 
 @Composable
@@ -69,14 +67,14 @@ fun ProfileEditContent(
 
                 Spacer(modifier = Modifier.height(80.dp))
 
-                if (viewModel.imageUri != "") {
+                if (viewModel.state.image != "") {
                     AsyncImage(
                         modifier = Modifier
                             .height(150.dp)
                             .width(150.dp)
                             .clip(CircleShape)
                             .clickable { dialogState.value = true },
-                        model = viewModel.imageUri,
+                        model = viewModel.state.image,
                         contentDescription = "Selected image",
                         contentScale = ContentScale.Crop
                     )
@@ -135,7 +133,7 @@ fun ProfileEditContent(
                         .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 40.dp),
                     text = "ACTUALIZAR DATOS",
-                    onClick = { viewModel.onUpdate() },
+                    onClick = { viewModel.saveImage() },
                 )
 
 

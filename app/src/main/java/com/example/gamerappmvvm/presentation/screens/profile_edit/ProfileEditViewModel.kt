@@ -16,6 +16,7 @@ import com.example.gamerappmvvm.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,13 +45,22 @@ class ProfileEditViewModel @Inject constructor(
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
+    var saveImageResponse by mutableStateOf<Response<String>?>(null)
+        private set
+
     //IMAGE
-    var imageUri by mutableStateOf("")
+    //var imageUri by mutableStateOf("")
     //var hasImage by mutableStateOf(false)
+
+    //FILE
+    var file: File? = null
 
     val resultingActivityHandler = ResultingActivityHandler()
     init {
-        state = state.copy(username = user.username)
+        state = state.copy(
+            username = user.username,
+            image = user.image
+        )
     }
 
     /*fun onCameraResult(result: Boolean) {
@@ -62,11 +72,21 @@ class ProfileEditViewModel @Inject constructor(
         imageUri = uri
     }*/
 
+    fun saveImage() {
+        viewModelScope.launch {
+            if (file != null) {
+                saveImageResponse = Response.Loading
+                val result = usersUseCases.saveImage(file!!)
+                saveImageResponse = result
+            }
+        }
+    }
     fun pickImage() {
         viewModelScope.launch {
             val result = resultingActivityHandler.getContent("image/*")
             if (result != null) {
-                imageUri = result.toString()
+                file = ComposeFileProvider.createFileFromUri(context, result)
+                state = state.copy(image = result.toString())
             }
         }
     }
@@ -75,16 +95,17 @@ class ProfileEditViewModel @Inject constructor(
         viewModelScope.launch {
             val result = resultingActivityHandler.takePicturePreview()
             if (result != null) {
-                imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
+                state = state.copy(image = ComposeFileProvider.getPathFromBitmap(context, result))
+                file = File(state.image)
             }
         }
     }
 
-    fun onUpdate() {
+    fun onUpdate(url: String) {
         val myUser = User(
             id = user.id,
             username = state.username,
-            image = ""
+            image = url
         )
         update(myUser)
     }
